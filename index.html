@@ -3,730 +3,837 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIPS Vía San Ángel — Celebra tu Cumpleaños</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>🎉 ¡Celebra tu Cumpleaños en VIPS! 🎂</title>
 <style>
-  :root {
-    --red: #C0392B;
-    --red-dark: #922B21;
-    --red-light: #FADBD8;
-    --gold: #D4AC0D;
-    --gold-light: #FDF0C0;
-    --cream: #FDF6ED;
-    --warm: #F5EBD8;
-    --dark: #1C1008;
-    --mid: #5D3A1A;
-    --muted: #9E7B5A;
-    --white: #FFFDF9;
-    --border: rgba(93,58,26,0.12);
-    --shadow: 0 2px 24px rgba(28,16,8,0.08);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: var(--cream);
-    font-family: 'Outfit', sans-serif;
-    color: var(--dark);
-    overflow-x: hidden;
+    font-family: 'Georgia', serif;
+    background: #1a0a00;
+    color: #f5e6d0;
+    min-height: 100vh;
   }
 
-  /* ─── HERO ─────────────────────────────────────── */
+  /* ══ HERO ══ */
   .hero {
-    background: var(--red-dark);
     position: relative;
+    width: 100%;
+    max-height: 420px;
     overflow: hidden;
-    padding: 0;
+    background: #0d0500;
   }
-  .hero::before {
+
+  .hero-img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    filter: brightness(0.65) saturate(1.1);
+    transition: filter 0.3s;
+  }
+
+  /* SCANNER EFFECT */
+  .scanner-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  /* scanlines */
+  .scanner-overlay::before {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 70% 50%, rgba(212,172,13,0.18) 0%, transparent 70%),
-      repeating-linear-gradient(135deg, transparent, transparent 30px, rgba(255,255,255,0.02) 30px, rgba(255,255,255,0.02) 60px);
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0,0,0,0.18) 3px,
+      rgba(0,0,0,0.18) 4px
+    );
+  }
+  /* moving scan beam */
+  .scanner-overlay::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right,
+      transparent 0%,
+      rgba(255,140,0,0.0) 10%,
+      rgba(255,200,80,0.9) 45%,
+      rgba(255,255,200,1.0) 50%,
+      rgba(255,200,80,0.9) 55%,
+      rgba(255,140,0,0.0) 90%,
+      transparent 100%
+    );
+    box-shadow: 0 0 18px 6px rgba(255,180,40,0.5), 0 0 40px 12px rgba(255,120,0,0.2);
+    animation: scan 3s ease-in-out infinite;
+    top: 0;
+  }
+  @keyframes scan {
+    0%   { top: 0%;    opacity: 0; }
+    5%   { opacity: 1; }
+    95%  { opacity: 1; }
+    100% { top: 100%;  opacity: 0; }
+  }
+
+  /* corner brackets */
+  .scanner-corner {
+    position: absolute;
+    width: 28px; height: 28px;
+    z-index: 3;
     pointer-events: none;
   }
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 4rem 2rem 3rem;
-    text-align: center;
-  }
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(212,172,13,0.2);
-    border: 1px solid rgba(212,172,13,0.5);
-    border-radius: 20px;
-    padding: 6px 18px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #F5D060;
-    margin-bottom: 1.5rem;
-  }
-  .hero-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.5rem, 12vw, 7rem);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-  }
-  .hero-logo span { color: #F5D060; }
-  .hero-tagline {
-    font-size: clamp(1rem, 3vw, 1.3rem);
-    color: rgba(255,253,249,0.7);
-    font-weight: 300;
-    margin-bottom: 2rem;
-    letter-spacing: 0.02em;
-  }
-  .hero-divider {
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(to right, transparent, #F5D060, transparent);
-    margin: 0 auto 2rem;
-  }
-  .hero-cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #F5D060;
-    color: var(--red-dark);
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 13px 28px;
-    border-radius: 6px;
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    transition: transform 0.15s, opacity 0.15s;
-  }
-  .btn-primary:hover { transform: translateY(-1px); opacity: 0.9; }
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: transparent;
-    color: rgba(255,253,249,0.8);
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 13px 28px;
-    border-radius: 6px;
-    text-decoration: none;
-    border: 1px solid rgba(255,253,249,0.25);
-    transition: border-color 0.15s, color 0.15s;
-  }
-  .btn-ghost:hover { border-color: rgba(255,253,249,0.6); color: var(--white); }
+  .scanner-corner.tl { top: 16px; left: 16px;
+    border-top: 2px solid rgba(255,200,80,0.8);
+    border-left: 2px solid rgba(255,200,80,0.8); }
+  .scanner-corner.tr { top: 16px; right: 16px;
+    border-top: 2px solid rgba(255,200,80,0.8);
+    border-right: 2px solid rgba(255,200,80,0.8); }
+  .scanner-corner.bl { bottom: 16px; left: 16px;
+    border-bottom: 2px solid rgba(255,200,80,0.8);
+    border-left: 2px solid rgba(255,200,80,0.8); }
+  .scanner-corner.br { bottom: 16px; right: 16px;
+    border-bottom: 2px solid rgba(255,200,80,0.8);
+    border-right: 2px solid rgba(255,200,80,0.8); }
 
-  /* ─── INTRO CARD ─── */
-  .intro-section {
-    max-width: 700px;
-    margin: -2rem auto 0;
-    padding: 0 1.5rem 2rem;
-    position: relative;
-    z-index: 5;
+  /* glitch flicker on the image */
+  .hero-img { animation: heroFlicker 6s ease-in-out infinite; }
+  @keyframes heroFlicker {
+    0%, 92%, 100% { filter: brightness(0.65) saturate(1.1); }
+    93%  { filter: brightness(0.85) saturate(1.4) hue-rotate(5deg); }
+    94%  { filter: brightness(0.60) saturate(1.1); }
+    95%  { filter: brightness(0.82) saturate(1.3); }
   }
-  .intro-card {
-    background: var(--white);
-    border-radius: 14px;
-    padding: 2rem 2.5rem;
-    box-shadow: var(--shadow);
+
+  /* VIPS LOGO OVERLAY */
+  .hero-brand {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 4;
     text-align: center;
-    border: 1px solid var(--border);
   }
-  .intro-card h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--dark);
+  .hero-brand-logo {
+    font-size: clamp(3.5rem, 12vw, 6rem);
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+    color: #fff;
+    letter-spacing: 0.12em;
+    text-shadow: 0 0 40px rgba(255,140,0,0.8), 0 2px 12px rgba(0,0,0,0.9);
+    animation: logoPulse 3s ease-in-out infinite;
+  }
+  @keyframes logoPulse {
+    0%, 100% { text-shadow: 0 0 40px rgba(255,140,0,0.8), 0 2px 12px rgba(0,0,0,0.9); }
+    50%       { text-shadow: 0 0 60px rgba(255,180,0,1.0), 0 2px 12px rgba(0,0,0,0.9); }
+  }
+  .hero-brand-sub {
+    font-size: clamp(0.7rem, 2.5vw, 1rem);
+    color: rgba(255,240,200,0.85);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+    margin-top: 4px;
+  }
+
+  /* ══ WRAPPER ══ */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ══ NAV BADGE ══ */
+  .nav-badge {
+    background: #c0392b;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: #ffe0b0;
+    text-transform: uppercase;
+  }
+
+  /* ══ HEADER SECTION ══ */
+  .main-header {
+    text-align: center;
+    padding: 3rem 20px 2rem;
+    background: linear-gradient(180deg, #200e00 0%, #1a0a00 100%);
+  }
+  .main-header h1 {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    color: #f5c842;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .main-header p {
+    font-size: 15px;
+    color: #c8a87a;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ornament */
+  .ornament {
+    text-align: center;
+    color: #c0392b;
+    font-size: 1.2rem;
+    margin: 1.2rem 0;
+    letter-spacing: 0.3em;
+  }
+
+  /* ══ INTRO BOX ══ */
+  .intro-box {
+    background: #2a1200;
+    border: 1px solid #5a2a0a;
+    border-radius: 4px;
+    padding: 1.5rem 2rem;
+    margin: 0 20px 2rem;
+    text-align: center;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .intro-box h2 {
+    font-size: 1.25rem;
+    color: #f5c842;
     margin-bottom: 0.75rem;
   }
-  .intro-card p {
-    color: var(--muted);
-    font-size: 15px;
+  .intro-box p {
+    font-size: 14px;
     line-height: 1.7;
-    margin-bottom: 1.25rem;
+    color: #d4b896;
+    margin-bottom: 1rem;
   }
-  .whatsapp-block {
-    background: #E8F8EE;
-    border: 1px solid #B8E6CA;
-    border-radius: 10px;
-    padding: 1rem 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: #1A5E33;
-    font-weight: 500;
-  }
-  .whatsapp-icon { font-size: 22px; }
 
-  /* ─── SECTION WRAPPER ─── */
-  section { max-width: 700px; margin: 0 auto; padding: 0 1.5rem 2.5rem; }
-  .section-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 0.5rem;
+  /* ══ PROMO ALERT BANNER ══ */
+  .promo-alert {
+    background: linear-gradient(135deg, #8b1a0a 0%, #c0392b 50%, #8b1a0a 100%);
+    border: 1px solid #ff7043;
+    border-radius: 6px;
+    padding: 14px 20px;
+    margin: 0 20px 1.5rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: alertPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes alertPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,112,67,0); }
+    50%       { box-shadow: 0 0 12px 4px rgba(255,112,67,0.35); }
+  }
+  .promo-alert-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .promo-alert-text { font-size: 13px; color: #ffe0b0; line-height: 1.5; }
+  .promo-alert-text strong { color: #fff; font-size: 14px; }
+
+  /* ══ SECTION TITLE ══ */
+  .section-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
+    font-size: 1.4rem;
+    color: #f5c842;
+    text-align: center;
+    margin-bottom: 0.3rem;
   }
   .section-sub {
-    font-size: 14px;
-    color: var(--muted);
-    margin-bottom: 1.75rem;
-    line-height: 1.6;
+    font-size: 13px;
+    color: #9a7a5a;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 1.5rem;
   }
 
-  /* ─── PROMO TABS ─── */
-  .promo-tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-  .tab-btn {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 6px 16px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'Outfit', sans-serif;
+  /* ══ MENU CARDS ══ */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 2rem;
   }
-  .tab-btn.active, .tab-btn:hover {
-    background: var(--red);
-    border-color: var(--red);
-    color: white;
-  }
-
-  /* ─── MENÚ CARDS ─── */
-  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media(max-width:480px) { .menu-grid { grid-template-columns: 1fr; } }
+  @media(max-width:480px){ .menu-grid { grid-template-columns: 1fr; } }
 
   .menu-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: #231000;
+    border: 1px solid #4a2000;
+    border-radius: 6px;
     overflow: hidden;
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
   }
-  .menu-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .menu-card:hover {
+    transform: translateY(-3px);
+    border-color: #c0392b;
+  }
+
   .menu-card-img {
     width: 100%;
     aspect-ratio: 4/3;
     object-fit: cover;
     display: block;
-    background: var(--warm);
+    filter: brightness(0.88) saturate(1.1);
   }
-  .menu-card-img-placeholder {
+  .menu-card-emoji {
     width: 100%;
     aspect-ratio: 4/3;
-    background: linear-gradient(135deg, var(--warm) 0%, var(--red-light) 100%);
+    background: linear-gradient(135deg, #2a1000 0%, #3d1800 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
-  .menu-card-body { padding: 14px 16px; }
-  .menu-card-num {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: var(--gold);
+  .menu-card-body { padding: 14px; }
+  .menu-card-tag {
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin-bottom: 4px;
+    color: #c0392b;
+    margin-bottom: 5px;
   }
   .menu-card-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 4px;
+    font-size: 1rem;
+    color: #f5e6d0;
+    margin-bottom: 5px;
+    line-height: 1.3;
   }
   .menu-card-desc {
-    font-size: 12px;
-    color: var(--muted);
+    font-size: 11.5px;
+    color: #9a7a5a;
     line-height: 1.5;
+    font-family: Arial, sans-serif;
     margin-bottom: 10px;
+  }
+  .menu-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
   }
   .menu-card-price {
     font-size: 13px;
-    font-weight: 600;
-    color: var(--red);
+    font-weight: bold;
+    color: #f5c842;
   }
   .menu-card-badge {
-    display: inline-block;
-    background: var(--red-light);
-    color: var(--red-dark);
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 8px;
+    font-size: 9px;
+    background: #c0392b;
+    color: #ffe0b0;
+    padding: 2px 7px;
     border-radius: 10px;
-    margin-left: 6px;
-  }
-
-  /* ─── PROMO BANNERS ─── */
-  .promo-banners { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
-  @media(max-width:480px) { .promo-banners { grid-template-columns: 1fr; } }
-
-  .promo-banner {
-    border-radius: 10px;
-    padding: 16px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .promo-banner.gold { background: var(--gold-light); border: 1px solid rgba(212,172,13,0.3); }
-  .promo-banner.red  { background: var(--red-light);  border: 1px solid rgba(192,57,43,0.2); }
-  .promo-banner.green{ background: #E8F8EE; border: 1px solid #B8E6CA; }
-  .promo-banner.blue { background: #E8F0FA; border: 1px solid #C0D0F0; }
-
-  .promo-banner-icon { font-size: 1.6rem; margin-bottom: 4px; }
-  .promo-banner-title { font-size: 13px; font-weight: 600; color: var(--dark); }
-  .promo-banner-desc  { font-size: 11px; color: var(--muted); line-height: 1.4; }
-
-  /* ─── DIVIDER ─── */
-  .ornament-divider {
-    text-align: center;
-    margin: 1rem 0 2rem;
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .ornament-divider::before, .ornament-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ─── BENEFICIOS ─── */
-  .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  @media(max-width:480px){ .benefits-grid { grid-template-columns: 1fr; } }
-
-  .benefit-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .benefit-icon {
-    width: 40px; height: 40px; border-radius: 10px;
-    background: var(--red-light);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; flex-shrink: 0;
-  }
-  .benefit-title { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
-  .benefit-desc  { font-size: 11px; color: var(--muted); line-height: 1.4; }
-
-  /* ─── ALIADOS ─── */
-  .ally-section {
-    background: var(--dark);
-    padding: 3rem 0;
-    margin: 2rem 0 0;
-  }
-  .ally-inner { max-width: 700px; margin: 0 auto; padding: 0 1.5rem; }
-  .ally-inner .section-title { color: var(--white); }
-  .ally-inner .section-label { color: #F5D060; }
-  .ally-inner .section-sub { color: rgba(255,253,249,0.5); }
-
-  .ally-category { margin-bottom: 1.75rem; }
-  .ally-cat-title {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: rgba(255,253,249,0.35);
-    margin-bottom: 10px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
-  .ally-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+  .menu-card-badge.new { background: #1a6b2a; }
+  .menu-card-badge.season { background: #7a4a0a; }
 
-  .ally-card {
-    background: rgba(255,253,249,0.04);
-    border: 1px solid rgba(255,253,249,0.08);
-    border-radius: 8px;
-    padding: 12px 14px;
+  /* ══ PROMO STRIP ══ */
+  .promo-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+  @media(max-width:480px){ .promo-strip { grid-template-columns: 1fr; } }
+
+  .promo-tile {
+    background: #231000;
+    border: 1px solid #4a2000;
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .promo-tile-icon { font-size: 1.6rem; margin-bottom: 6px; }
+  .promo-tile-title { font-size: 13px; font-weight: bold; color: #f5c842; margin-bottom: 4px; }
+  .promo-tile-desc { font-size: 11px; color: #9a7a5a; line-height: 1.45; font-family: Arial, sans-serif; }
+
+  /* ══ CTA BUTTONS — MEJORADOS ══ */
+  .cta-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    transition: border-color 0.2s;
+    gap: 12px;
+    margin: 2rem 0;
+    align-items: center;
   }
-  .ally-card:hover { border-color: rgba(245,208,96,0.4); }
-  .ally-name { font-size: 13px; font-weight: 500; color: rgba(255,253,249,0.9); }
-  .ally-links { display: flex; gap: 5px; flex-wrap: wrap; }
 
-  .ally-btn {
-    font-size: 10px;
-    font-weight: 500;
-    padding: 3px 9px;
-    border-radius: 4px;
+  .btn-main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 440px;
+    padding: 18px 32px;
+    border-radius: 6px;
     text-decoration: none;
-    transition: opacity 0.15s;
-    letter-spacing: 0.02em;
-  }
-  .ally-btn:hover { opacity: 0.75; }
-  .ally-btn-web  { background: rgba(56,130,240,0.2); color: #80AAFF; }
-  .ally-btn-fb   { background: rgba(66,103,178,0.25); color: #90AAEE; }
-  .ally-none     { font-size: 10px; color: rgba(255,255,255,0.2); font-style: italic; }
-
-  /* ─── CTA FINAL ─── */
-  .final-cta {
-    background: var(--red-dark);
-    padding: 3.5rem 1.5rem;
-    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
     position: relative;
     overflow: hidden;
   }
-  .final-cta::before {
+  /* shimmer sweep */
+  .btn-main::after {
     content: '';
     position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(212,172,13,0.15) 0%, transparent 70%);
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+    transition: left 0.4s;
+  }
+  .btn-main:hover::after { left: 150%; }
+  .btn-main:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  .btn-main:active { transform: translateY(0); }
+
+  .btn-whatsapp {
+    background: linear-gradient(135deg, #1a8c3a 0%, #25a84a 60%, #1a8c3a 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(37,168,74,0.35);
+  }
+  .btn-whatsapp:hover { box-shadow: 0 6px 24px rgba(37,168,74,0.5); }
+
+  .btn-menu {
+    background: linear-gradient(135deg, #8b1a0a 0%, #c0392b 60%, #8b1a0a 100%);
+    color: #ffe0b0;
+    box-shadow: 0 4px 16px rgba(192,57,43,0.35);
+  }
+  .btn-menu:hover { box-shadow: 0 6px 24px rgba(192,57,43,0.5); }
+
+  .btn-outline {
+    background: transparent;
+    color: #f5c842;
+    border: 1.5px solid #f5c842;
+    max-width: 440px;
+    box-shadow: none;
+  }
+  .btn-outline:hover {
+    background: rgba(245,200,66,0.08);
+    box-shadow: 0 4px 16px rgba(245,200,66,0.2);
+    transform: translateY(-2px);
+  }
+
+  /* pulse ring on main CTA */
+  .btn-pulse-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+  }
+  .btn-pulse-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 10px;
+    border: 2px solid rgba(37,168,74,0.5);
+    animation: ringPulse 2s ease-out infinite;
     pointer-events: none;
   }
-  .final-cta-inner { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; }
-  .final-cta h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 6vw, 2.8rem);
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-    line-height: 1.15;
+  @keyframes ringPulse {
+    0%   { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.06); }
   }
-  .final-cta h2 em { color: #F5D060; font-style: normal; }
-  .final-cta p { color: rgba(255,253,249,0.65); font-size: 14px; margin-bottom: 2rem; line-height: 1.6; }
-  .final-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #F5D060;
-    color: var(--red-dark);
-    font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    padding: 16px 36px;
-    border-radius: 8px;
+
+  /* ══ ALIADOS SECTION ══ */
+  .allies-section {
+    background: #120800;
+    padding: 2rem 20px;
+    border-top: 1px solid #3a1800;
+    border-bottom: 1px solid #3a1800;
+    margin-bottom: 2rem;
+  }
+  .allies-inner { max-width: 640px; margin: 0 auto; }
+
+  .ally-cat {
+    margin-bottom: 1.5rem;
+  }
+  .ally-cat-title {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #7a5a3a;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2a1400;
+  }
+  .ally-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+  }
+  .ally-card {
+    background: #1e0d00;
+    border: 1px solid #3a1800;
+    border-radius: 4px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    transition: border-color 0.2s;
+  }
+  .ally-card:hover { border-color: #c0392b; }
+  .ally-name { font-size: 13px; color: #e0c8a8; }
+  .ally-links { display: flex; gap: 5px; flex-wrap: wrap; }
+  .ally-link {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
     text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: transform 0.15s;
+    font-family: Arial, sans-serif;
+    transition: opacity 0.15s;
   }
-  .final-cta-btn:hover { transform: scale(1.02); }
+  .ally-link:hover { opacity: 0.75; }
+  .ally-link-web  { background: #1a3a6a; color: #80aaee; }
+  .ally-link-fb   { background: #1a2e5a; color: #7090cc; }
+  .ally-none      { font-size: 10px; color: #4a3a2a; font-style: italic; }
 
-  .address-strip {
-    background: var(--dark);
-    padding: 1rem 1.5rem;
+  /* ══ FINAL CTA ══ */
+  .final-section {
+    background: linear-gradient(180deg, #1a0a00 0%, #200800 100%);
     text-align: center;
-    font-size: 12px;
-    color: rgba(255,253,249,0.3);
-    letter-spacing: 0.03em;
+    padding: 3rem 20px 4rem;
   }
-  .address-strip a { color: rgba(245,208,96,0.6); text-decoration: none; }
+  .final-section h2 {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    color: #f5c842;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .final-section p {
+    font-size: 14px;
+    color: #9a7a5a;
+    max-width: 440px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    font-family: Arial, sans-serif;
+  }
 
-  /* ─── TAB CONTENT ─── */
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+  /* ══ FOOTER ══ */
+  footer {
+    background: #0d0500;
+    text-align: center;
+    padding: 1.5rem 20px;
+    font-size: 11px;
+    color: #5a3a1a;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+  }
+  footer a { color: #7a5a2a; text-decoration: none; }
 
-  /* ─── SCROLL REVEAL ─── */
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
-  .revealed { opacity: 1; transform: translateY(0); }
+  /* ══ HORIZONTAL RULE ══ */
+  hr.fancy {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #4a2000, transparent);
+    margin: 2rem auto;
+    max-width: 500px;
+  }
+
+  /* ══ RESPONSIVE ══ */
+  @media(max-width:520px){
+    .intro-box, .promo-alert { margin-left: 12px; margin-right: 12px; }
+    .btn-main { font-size: 13px; padding: 15px 20px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ══ HERO ══════════════════════════════════════════ -->
+<!-- ══ HERO CON EFECTO SCANNER ══════════════════════════ -->
 <div class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">🎂 Vía San Ángel · Puebla</div>
-    <div class="hero-logo">V<span>I</span>PS</div>
-    <div class="hero-tagline">Celebra tu cumpleaños con nosotros · Abril 2026</div>
-    <div class="hero-divider"></div>
-    <div class="hero-cta-group">
-      <a href="#menu" class="btn-primary">🍽️ Ver menú del mes</a>
-      <a href="#aliados" class="btn-ghost">🏬 Negocios aliados</a>
+  <!-- Imagen hero — misma imagen base64 del original (enchiladas) -->
+  <img class="hero-img" src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=900&q=80&fit=crop" alt="VIPS Menú" onerror="this.style.background='#1a0a00';this.style.height='380px';" />
+  <!-- Scanner overlay -->
+  <div class="scanner-overlay"></div>
+  <!-- Corner brackets -->
+  <div class="scanner-corner tl"></div>
+  <div class="scanner-corner tr"></div>
+  <div class="scanner-corner bl"></div>
+  <div class="scanner-corner br"></div>
+  <!-- Brand -->
+  <div class="hero-brand">
+    <div class="hero-brand-logo">VIPS</div>
+    <div class="hero-brand-sub">Vía San Ángel · Puebla</div>
+  </div>
+</div>
+
+<!-- NAV BADGE -->
+<div class="nav-badge">🎉 ¡Celebra tu Cumpleaños en VIPS! 🎂</div>
+
+<!-- HEADER -->
+<div class="main-header">
+  <h1>🎉 ¡Celebra tu Cumpleaños con Nosotros! 🎂</h1>
+  <p>Haz de tu día especial una experiencia inolvidable</p>
+</div>
+
+<!-- PROMO ABRIL ALERT -->
+<div class="promo-alert">
+  <div class="promo-alert-icon">🌸</div>
+  <div class="promo-alert-text">
+    <strong>¡Menú Especial Abril 2026 — Semana Santa!</strong><br>
+    Platillos de temporada, combos clásicos desde $99 y promoción Lun–Jue platillo + bebida desde $149. ¡Celebra con nosotros!
+  </div>
+</div>
+
+<!-- INTRO BOX -->
+<div class="intro-box">
+  <h2>🎊 ¡Tu Próxima Fiesta Empieza Aquí! 🎊</h2>
+  <p>Gracias por visitar VIPS. Queremos ser parte de tu próxima celebración especial.</p>
+  <p><strong>📅 Envíanos tu nombre y fecha de cumpleaños por WhatsApp<br>
+  y te enviaremos un menú personalizado para tu festejo</strong></p>
+
+  <div class="cta-group" style="margin-top:1.2rem; margin-bottom:0;">
+    <div class="btn-pulse-wrap">
+      <a href="https://wa.me/522222252325?text=Hola%20VIPS%20Via%20San%20Angel%2C%20quiero%20celebrar%20mi%20cumpleanos%20%F0%9F%8E%82" class="btn-main btn-whatsapp" target="_blank">
+        💬 Enviar WhatsApp ahora
+      </a>
     </div>
   </div>
 </div>
 
-<!-- ══ INTRO ══════════════════════════════════════════ -->
-<div class="intro-section">
-  <div class="intro-card reveal">
-    <h2>🎉 ¡Tu próxima fiesta empieza aquí!</h2>
-    <p>Gracias por visitar VIPS. Queremos ser parte de tu celebración especial. Envíanos tu nombre y fecha de cumpleaños por WhatsApp y te mandamos un menú personalizado para tu festejo.</p>
-    <div class="whatsapp-block">
-      <span class="whatsapp-icon">💬</span>
-      <span>Escríbenos por WhatsApp · <strong>222 225 23 25</strong></span>
-    </div>
-  </div>
-</div>
+<!-- SECTION MENÚ -->
+<div class="section-wrap">
+  <div class="ornament">◆</div>
+  <h2 class="section-title">Una Mesa <em>Inolvidable</em> Te Espera</h2>
+  <p class="section-sub">Menú de Celebración · Abril 2026</p>
+  <p style="font-size:13px; color:#9a7a5a; text-align:center; font-family:Arial,sans-serif; margin-bottom:1.5rem;">
+    Cada platillo es preparado con los mejores ingredientes para hacer de tu cumpleaños una experiencia única. Elige tu favorito y nosotros hacemos el resto.
+  </p>
 
-<!-- ══ MENÚ ABRIL ═══════════════════════════════════════ -->
-<section id="menu" style="padding-top:2rem;">
-  <div class="reveal">
-    <div class="section-label">Menú · Abril 2026</div>
-    <h2 class="section-title">Sabores de primavera</h2>
-    <p class="section-sub">Platillos destacados este mes, preparados con ingredientes frescos de temporada. Precios aproximados en sucursal Vía San Ángel.</p>
-  </div>
-
-  <!-- PROMO TABS -->
-  <div class="promo-tabs reveal">
-    <button class="tab-btn active" onclick="showTab('desayunos',this)">Desayunos</button>
-    <button class="tab-btn" onclick="showTab('comidas',this)">Comidas</button>
-    <button class="tab-btn" onclick="showTab('especiales',this)">Especiales Abril</button>
-  </div>
-
-  <!-- DESAYUNOS -->
-  <div id="tab-desayunos" class="tab-content active reveal">
-    <div class="menu-grid">
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🥚</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">01 · Clásico</div>
-          <div class="menu-card-name">Chilaquiles Verdes</div>
-          <div class="menu-card-desc">Totopos crujientes en salsa verde, pollo desmenuzado, crema y queso. Con huevo al gusto.</div>
-          <div class="menu-card-price">Desde $159<span class="menu-card-badge">Favorito</span></div>
-        </div>
-      </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🥞</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">02 · Dulce</div>
-          <div class="menu-card-name">Hot Cakes con Fruta</div>
-          <div class="menu-card-desc">Esponjosos hot cakes con fruta fresca de temporada y jarabe de maple.</div>
-          <div class="menu-card-price">Desde $129</div>
-        </div>
-      </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🍞</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">03 · Mexicano</div>
-          <div class="menu-card-name">Molletes con Pico</div>
-          <div class="menu-card-desc">Pan bolillo tostado con frijoles, queso gratinado y pico de gallo fresco.</div>
-          <div class="menu-card-price">Desde $109</div>
-        </div>
-      </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">☕</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">04 · Combo</div>
-          <div class="menu-card-name">Desayuno Clásico</div>
-          <div class="menu-card-desc">Café + jugo natural + tu elección entre chilaquiles o hot cakes. ¡Todo incluido!</div>
-          <div class="menu-card-price">Desde $149<span class="menu-card-badge">Combo</span></div>
-        </div>
-      </div>
+  <!-- PROMO ESPECIAL ABRIL —destaque -->
+  <div style="background:linear-gradient(135deg,#2a1000,#3d1800);border:1px solid #c0392b;border-radius:6px;padding:16px 18px;margin-bottom:16px;display:flex;gap:14px;align-items:center;">
+    <span style="font-size:2.2rem;flex-shrink:0;">🎉</span>
+    <div>
+      <div style="font-size:11px;font-weight:bold;letter-spacing:0.15em;color:#c0392b;text-transform:uppercase;margin-bottom:4px;">Promo Cumpleaños · Todo Abril</div>
+      <div style="font-size:13px;color:#f5e6d0;font-weight:bold;margin-bottom:3px;">Desayuno de Cortesía en tu Día</div>
+      <div style="font-size:11.5px;color:#9a7a5a;font-family:Arial,sans-serif;line-height:1.5;">Presenta tu INE en tu cumpleaños y recibe tu desayuno gratis. ¡Acompáñate de al menos 1 comensal! Aplica en sucursal Vía San Ángel.</div>
     </div>
   </div>
 
-  <!-- COMIDAS -->
-  <div id="tab-comidas" class="tab-content reveal">
-    <div class="menu-grid">
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🫕</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">01 · Clásico</div>
-          <div class="menu-card-name">Enchiladas Suizas</div>
-          <div class="menu-card-desc">Tortillas en salsa verde con pollo, crema, queso y cebolla. Icónico de la casa.</div>
-          <div class="menu-card-price">Desde $189</div>
+  <!-- MENU GRID -->
+  <div class="menu-grid">
+
+    <!-- ENCHILADAS SUIZAS -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">🫕</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">01 · Clásico Mexicano</div>
+        <div class="menu-card-name">Enchiladas Suizas</div>
+        <div class="menu-card-desc">Tortillas en salsa verde cremosa con pollo, crema, queso gratinado y cebolla. Icónico de la casa.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $189</span>
+          <span class="menu-card-badge">Favorito</span>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🍔</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">02 · Grill</div>
-          <div class="menu-card-name">Hamburguesa VIPS</div>
-          <div class="menu-card-desc">Carne 100% res, lechuga, jitomate, pepinillo y cebolla. Con papas fritas.</div>
-          <div class="menu-card-price">Desde $179</div>
+    </div>
+
+    <!-- HAMBURGUESA -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">🍔</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">02 · Grill</div>
+        <div class="menu-card-name">Hamburguesa VIPS</div>
+        <div class="menu-card-desc">Carne 100% res, lechuga, jitomate, pepinillo y cebolla. Servida con papas fritas crujientes.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $179</span>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🥗</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">03 · Balance</div>
-          <div class="menu-card-name">Ensalada del Chef</div>
-          <div class="menu-card-desc">Opción saludable con pollo a la plancha, verduras frescas y aderezo light.</div>
-          <div class="menu-card-price">Desde $169</div>
+    </div>
+
+    <!-- CHILAQUILES -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">🥚</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">03 · Desayuno</div>
+        <div class="menu-card-name">Chilaquiles VIPS</div>
+        <div class="menu-card-desc">Totopos crujientes en salsa roja o verde, pollo, crema y queso. Con huevo al gusto.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $159</span>
+          <span class="menu-card-badge">Favorito</span>
         </div>
       </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🥙</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">04 · Sándwich</div>
-          <div class="menu-card-name">Club Sándwich VIPS</div>
-          <div class="menu-card-desc">Pollo, tocino, jitomate y lechuga en pan tostado, con papas a la francesa.</div>
-          <div class="menu-card-price">Desde $179</div>
+    </div>
+
+    <!-- CAMARONES SEMANA SANTA — NUEVO ABRIL -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">🦐</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">04 · Especial Cuaresma</div>
+        <div class="menu-card-name">Camarones a la Diabla</div>
+        <div class="menu-card-desc">Camarones en salsa roja picante, arroz y frijoles. Disponible viernes de Cuaresma y todo abril.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $229</span>
+          <span class="menu-card-badge season">Temporada</span>
         </div>
       </div>
+    </div>
+
+    <!-- FILETE PESCADO — NUEVO ABRIL -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">🐟</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">05 · Especial Semana Santa</div>
+        <div class="menu-card-name">Filete de Pescado</div>
+        <div class="menu-card-desc">Filete empanizado o a la plancha con ensalada fresca y arroz blanco. Ligero y delicioso.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $209</span>
+          <span class="menu-card-badge season">Temporada</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMBO CLÁSICO $99 — NUEVO ABRIL -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">☕</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">06 · Oferta Mes</div>
+        <div class="menu-card-name">Combo Clásico del Día</div>
+        <div class="menu-card-desc">Bebida + entrada + platillo fuerte. Desayunos, comidas y cenas completas a precio especial.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $99</span>
+          <span class="menu-card-badge new">¡Oferta!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOLLETES -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">🍞</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">07 · Martes Especial</div>
+        <div class="menu-card-name">Molletes VIPS</div>
+        <div class="menu-card-desc">Pan bolillo tostado con frijoles, queso gratinado y pico de gallo. 20% de descuento todos los martes.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $109</span>
+          <span class="menu-card-badge new">−20% Martes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASTEL TRES LECHES -->
+    <div class="menu-card">
+      <div class="menu-card-emoji">🍰</div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">08 · Postre</div>
+        <div class="menu-card-name">Pastel Tres Leches</div>
+        <div class="menu-card-desc">Suave, dulce y esponjoso. El postre más pedido. Perfecto para cerrar tu celebración de cumpleaños.</div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price">Desde $89</span>
+          <span class="menu-card-badge">Especial</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /menu-grid -->
+
+  <!-- PROMO TILES ABRIL -->
+  <hr class="fancy">
+  <h3 style="text-align:center;color:#f5c842;font-size:1.1rem;margin-bottom:1rem;">🎯 Promociones de Abril 2026</h3>
+
+  <div class="promo-strip">
+    <div class="promo-tile">
+      <div class="promo-tile-icon">📅</div>
+      <div class="promo-tile-title">Lun–Jue · Clásicos VIPS</div>
+      <div class="promo-tile-desc">Platillo favorito con bebida incluida desde solo <strong style="color:#f5c842;">$149 MXN</strong>. Solo de lunes a jueves.</div>
+    </div>
+    <div class="promo-tile">
+      <div class="promo-tile-icon">🎂</div>
+      <div class="promo-tile-title">Cumpleaños · Desayuno Gratis</div>
+      <div class="promo-tile-desc">Muestra tu INE y acompáñate de alguien. ¡El desayuno corre por VIPS en tu día especial!</div>
+    </div>
+    <div class="promo-tile">
+      <div class="promo-tile-icon">🌟</div>
+      <div class="promo-tile-title">App Wow+ · Hasta 50% off</div>
+      <div class="promo-tile-desc">Descarga la app Wow+ de Alsea y acumula puntos canjeables en cada visita a VIPS.</div>
+    </div>
+    <div class="promo-tile">
+      <div class="promo-tile-icon">💳</div>
+      <div class="promo-tile-title">Banco Azteca · 15% desc.</div>
+      <div class="promo-tile-desc">Paga con tarjeta Banco Azteca y obtén 15% de descuento con consumo mínimo de $199 MXN.</div>
+    </div>
+    <div class="promo-tile">
+      <div class="promo-tile-icon">🍽️</div>
+      <div class="promo-tile-title">Cena 2×1 Noches</div>
+      <div class="promo-tile-desc">Por las noches disfruta dos platillos principales por el precio de uno. Consulta disponibilidad.</div>
+    </div>
+    <div class="promo-tile">
+      <div class="promo-tile-icon">🚀</div>
+      <div class="promo-tile-title">Uber Eats · $100 off</div>
+      <div class="promo-tile-desc">Primer pedido en Uber Eats con descuento de <strong style="color:#f5c842;">$100 MXN</strong> con compra mínima de $200.</div>
     </div>
   </div>
 
-  <!-- ESPECIALES ABRIL -->
-  <div id="tab-especiales" class="tab-content reveal">
-    <div class="menu-grid">
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🌸</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">Especial · Semana Santa</div>
-          <div class="menu-card-name">Camarones a la Diabla</div>
-          <div class="menu-card-desc">Camarones jugosos en salsa roja picante, arroz y frijoles. Disponible viernes de Cuaresma.</div>
-          <div class="menu-card-price">Desde $229<span class="menu-card-badge">Temporada</span></div>
-        </div>
-      </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🐟</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">Especial · Cuaresma</div>
-          <div class="menu-card-name">Filete de Pescado</div>
-          <div class="menu-card-desc">Filete empanizado o a la plancha con ensalada y arroz blanco.</div>
-          <div class="menu-card-price">Desde $209<span class="menu-card-badge">Temporada</span></div>
-        </div>
-      </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🍰</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">Postre · Abril</div>
-          <div class="menu-card-name">Pastel de Chocolate</div>
-          <div class="menu-card-desc">Icónico pastel húmedo de chocolate, perfecto para celebrar tu cumpleaños.</div>
-          <div class="menu-card-price">Desde $89 la porción</div>
-        </div>
-      </div>
-      <div class="menu-card">
-        <div class="menu-card-img-placeholder">🎂</div>
-        <div class="menu-card-body">
-          <div class="menu-card-num">Regalo · Cumpleaños</div>
-          <div class="menu-card-name">Desayuno de Cortesía</div>
-          <div class="menu-card-desc">En tu día especial, presenta tu INE y recibe un desayuno de cortesía de la casa. ¡Acompañado de al menos 1 comensal!</div>
-          <div class="menu-card-price" style="color:#1A5E33;">🎁 Gratis · Solo hoy</div>
-        </div>
-      </div>
+  <!-- CTA GROUP -->
+  <div class="cta-group">
+    <div class="btn-pulse-wrap">
+      <a href="https://wa.me/522222252325?text=Hola%20VIPS%20Via%20San%20Angel%2C%20quiero%20celebrar%20mi%20cumpleanos%20%F0%9F%8E%82" class="btn-main btn-whatsapp" target="_blank">
+        💬 ¡Reservar mi Mesa por WhatsApp!
+      </a>
     </div>
+    <a href="https://vips.com.mx" class="btn-main btn-menu" target="_blank" style="max-width:440px;width:100%;">
+      🍽️ Ver Menú Completo en vips.com.mx
+    </a>
+    <a href="#aliados" class="btn-main btn-outline" style="width:100%;">
+      🏬 Ver Negocios Aliados de la Plaza
+    </a>
   </div>
 
-  <!-- PROMO BANNERS -->
-  <div class="ornament-divider reveal">✦ Promociones de Abril ✦</div>
-  <div class="promo-banners reveal">
-    <div class="promo-banner gold">
-      <div class="promo-banner-icon">📅</div>
-      <div class="promo-banner-title">Lun–Jue · Platillo + Bebida</div>
-      <div class="promo-banner-desc">Tu platillo favorito con bebida incluida desde solo $149 MXN. Solo de lunes a jueves.</div>
-    </div>
-    <div class="promo-banner red">
-      <div class="promo-banner-icon">🎉</div>
-      <div class="promo-banner-title">Cumpleaños · Desayuno gratis</div>
-      <div class="promo-banner-desc">Presenta tu INE y acompáñate de alguien. ¡El desayuno corre por cuenta de VIPS!</div>
-    </div>
-    <div class="promo-banner green">
-      <div class="promo-banner-icon">🌟</div>
-      <div class="promo-banner-title">App Wow+ · Hasta 50% off</div>
-      <div class="promo-banner-desc">Descarga la app Wow+ de Alsea y acumula puntos canjeables en cada visita.</div>
-    </div>
-    <div class="promo-banner blue">
-      <div class="promo-banner-icon">💳</div>
-      <div class="promo-banner-title">Banco Azteca · 15% descuento</div>
-      <div class="promo-banner-desc">Con tarjeta Banco Azteca, 15% de descuento en consumo mínimo de $199 MXN.</div>
-    </div>
-  </div>
-
-  <!-- BENEFICIOS -->
-  <div class="ornament-divider reveal">✦ ¿Por qué celebrar en VIPS? ✦</div>
-  <div class="benefits-grid reveal">
-    <div class="benefit-card">
-      <div class="benefit-icon">🍽️</div>
-      <div>
-        <div class="benefit-title">Menú para todos</div>
-        <div class="benefit-desc">Opciones para adultos, niños y menú balance saludable.</div>
-      </div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">👨‍👩‍👧‍👦</div>
-      <div>
-        <div class="benefit-title">Ambiente familiar</div>
-        <div class="benefit-desc">Espacio amplio, cómodo y acogedor para grupos grandes.</div>
-      </div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">🕐</div>
-      <div>
-        <div class="benefit-title">Abierto todos los días</div>
-        <div class="benefit-desc">De 7 am a 11 pm, los 365 días del año.</div>
-      </div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">🎁</div>
-      <div>
-        <div class="benefit-title">Programa de lealtad</div>
-        <div class="benefit-desc">Tarjeta TDL con descuentos del 10% al 50% y puntos Wow.</div>
-      </div>
-    </div>
-  </div>
-</section>
+</div><!-- /section-wrap -->
 
 <!-- ══ NEGOCIOS ALIADOS ════════════════════════════════ -->
-<div class="ally-section" id="aliados">
-  <div class="ally-inner">
-    <div class="section-label" style="color:#F5D060;">Plaza Vía San Ángel · Puebla</div>
-    <h2 class="section-title" style="color:var(--white);">Negocios aliados</h2>
-    <p class="section-sub">Mientras esperas o antes de comer, visita estos espacios en la misma plaza. ¡Todo bajo un solo techo!</p>
+<div class="allies-section" id="aliados">
+  <div class="allies-inner">
+    <div class="ornament" style="margin-bottom:1rem;">◆</div>
+    <h2 class="section-title">🏬 Negocios Aliados</h2>
+    <p class="section-sub">Plaza Vía San Ángel · Atlixcáyotl 1504, Puebla</p>
+    <p style="font-size:12px;color:#7a5a3a;text-align:center;margin-bottom:1.5rem;font-family:Arial,sans-serif;">Mientras esperas o antes de comer, visita estos espacios en la misma plaza. ¡Todo bajo un solo techo!</p>
 
     <!-- BELLEZA -->
-    <div class="ally-category reveal">
+    <div class="ally-cat">
       <div class="ally-cat-title">✂️ Belleza</div>
       <div class="ally-grid">
         <div class="ally-card">
           <div class="ally-name">Belisama</div>
-          <div class="ally-links"><a href="https://www.facebook.com/belisamapuebla" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/belisamapuebla" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Lady Lash</div>
-          <div class="ally-links"><a href="https://www.facebook.com/ladylashmx" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/ladylashmx" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Machine Salón</div>
-          <div class="ally-links"><a href="https://www.facebook.com/machinesalon" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/machinesalon" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Pixxi</div>
-          <div class="ally-links"><a href="https://www.facebook.com/pixxibeauty" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/pixxibeauty" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Sally Beauty</div>
           <div class="ally-links">
-            <a href="https://www.sallybeauty.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/SallyBeautyMexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.sallybeauty.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/SallyBeautyMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Yamel</div>
           <div class="ally-links">
-            <a href="https://www.yamel.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/YamelMX" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.yamel.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/YamelMX" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Fraiche</div>
-          <div class="ally-links"><a href="https://www.facebook.com/fraichesalon" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/fraichesalon" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">MC</div>
@@ -736,45 +843,45 @@
     </div>
 
     <!-- SALUD Y BIENESTAR -->
-    <div class="ally-category reveal">
+    <div class="ally-cat">
       <div class="ally-cat-title">💊 Salud y Bienestar</div>
       <div class="ally-grid">
         <div class="ally-card">
           <div class="ally-name">GNC</div>
           <div class="ally-links">
-            <a href="https://www.gnc.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/GNCMexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.gnc.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/GNCMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Óptica Americana</div>
           <div class="ally-links">
-            <a href="https://www.opticaamericana.com" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/OpticaAmericana" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.opticaamericana.com" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/OpticaAmericana" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Óptica Moriel</div>
-          <div class="ally-links"><a href="https://www.facebook.com/opticamoriel" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/opticamoriel" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Prodermica</div>
-          <div class="ally-links"><a href="https://www.facebook.com/prodermicapuebla" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/prodermicapuebla" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Farmacias Similares</div>
           <div class="ally-links">
-            <a href="https://www.farmaciasdesimilares.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/FarmaciasSimilares" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.farmaciasdesimilares.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/FarmaciasSimilares" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Súper Naturistas</div>
-          <div class="ally-links"><a href="https://www.facebook.com/supernaturistas" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/supernaturistas" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">AR Podólogos</div>
-          <div class="ally-links"><a href="https://www.facebook.com/arpodologos" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/arpodologos" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Nirvana</div>
@@ -787,142 +894,186 @@
       </div>
     </div>
 
-    <!-- HOGAR — con IKEA destacado -->
-    <div class="ally-category reveal">
+    <!-- HOGAR — IKEA DESTACADO -->
+    <div class="ally-cat">
       <div class="ally-cat-title">🛋️ Hogar</div>
       <div class="ally-grid">
-        <div class="ally-card" style="border-color:rgba(245,208,96,0.35);">
-          <div class="ally-name" style="color:#F5D060;">IKEA ⭐</div>
+        <div class="ally-card" style="border-color:#f5c842;">
+          <div class="ally-name" style="color:#f5c842;">IKEA ⭐</div>
           <div class="ally-links">
-            <a href="https://www.ikea.com/mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/IKEAMexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.ikea.com/mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/IKEAMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Gaia</div>
-          <div class="ally-links"><a href="https://www.facebook.com/gaiahomemx" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/gaiahomemx" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Lunna</div>
-          <div class="ally-links"><a href="https://www.facebook.com/lunnahogar" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-links"><a href="https://www.facebook.com/lunnahogar" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
       </div>
     </div>
 
-    <!-- DEPORTES -->
-    <div class="ally-category reveal">
-      <div class="ally-cat-title">🏋️ Deportes</div>
+    <!-- RESTAURANTES -->
+    <div class="ally-cat">
+      <div class="ally-cat-title">🍽️ Restaurantes</div>
       <div class="ally-grid">
         <div class="ally-card">
-          <div class="ally-name">Decathlon</div>
+          <div class="ally-name">Shake Shack</div>
           <div class="ally-links">
-            <a href="https://www.decathlon.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/DecathlonMexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.shakeshack.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/shakeshackmx" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
-          <div class="ally-name">Garmin</div>
+          <div class="ally-name">SushiRoll</div>
           <div class="ally-links">
-            <a href="https://www.garmin.com/es-MX" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/GarminMexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.sushiroll.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/SushiRollMX" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
-          <div class="ally-name">Sportico</div>
-          <div class="ally-links"><a href="https://www.facebook.com/sportico.mx" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-name">Domino's</div>
+          <div class="ally-links">
+            <a href="https://www.dominos.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/DominosMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
+          </div>
         </div>
         <div class="ally-card">
-          <div class="ally-name">Sport Masters</div>
-          <div class="ally-links"><a href="https://www.facebook.com/sportmastersmx" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-name">Little Caesars</div>
+          <div class="ally-links">
+            <a href="https://www.littlecaesars.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/LittleCaesarsMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
+          </div>
         </div>
         <div class="ally-card">
-          <div class="ally-name">Under Ground</div>
-          <div class="ally-links"><a href="https://www.facebook.com/undergroundpuebla" class="ally-btn ally-btn-fb" target="_blank">Facebook</a></div>
+          <div class="ally-name">Moyo</div>
+          <div class="ally-links">
+            <a href="https://www.moyo.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/MoyoMX" class="ally-link ally-link-fb" target="_blank">FB</a>
+          </div>
+        </div>
+        <div class="ally-card">
+          <div class="ally-name">Café Escarlata</div>
+          <div class="ally-links"><a href="https://www.facebook.com/cafeescarlata" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
         </div>
       </div>
     </div>
 
     <!-- TECNOLOGÍA -->
-    <div class="ally-category reveal">
+    <div class="ally-cat">
       <div class="ally-cat-title">📱 Tecnología</div>
       <div class="ally-grid">
         <div class="ally-card">
           <div class="ally-name">macStore</div>
           <div class="ally-links">
-            <a href="https://www.macstore.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/macstoremexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.macstore.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/macstoremexico" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Telcel</div>
           <div class="ally-links">
-            <a href="https://www.telcel.com" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/Telcel" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.telcel.com" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/Telcel" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
-          <div class="ally-name">AT&T</div>
+          <div class="ally-name">AT&amp;T</div>
           <div class="ally-links">
-            <a href="https://www.att.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/ATTMexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.att.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/ATTMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Steren Shop</div>
           <div class="ally-links">
-            <a href="https://www.steren.com.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/SterenMX" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.steren.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/SterenMX" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Mobo</div>
           <div class="ally-links">
-            <a href="https://www.mobo.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/mobomx" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.mobo.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/mobomx" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
         <div class="ally-card">
           <div class="ally-name">Movistar</div>
           <div class="ally-links">
-            <a href="https://www.movistar.mx" class="ally-btn ally-btn-web" target="_blank">Web</a>
-            <a href="https://www.facebook.com/MovistarMexico" class="ally-btn ally-btn-fb" target="_blank">Facebook</a>
+            <a href="https://www.movistar.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/MovistarMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
           </div>
         </div>
       </div>
     </div>
 
-  </div><!-- ally-inner -->
-</div><!-- ally-section -->
+    <!-- DEPORTES -->
+    <div class="ally-cat">
+      <div class="ally-cat-title">🏋️ Deportes</div>
+      <div class="ally-grid">
+        <div class="ally-card">
+          <div class="ally-name">Decathlon</div>
+          <div class="ally-links">
+            <a href="https://www.decathlon.com.mx" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/DecathlonMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
+          </div>
+        </div>
+        <div class="ally-card">
+          <div class="ally-name">Garmin</div>
+          <div class="ally-links">
+            <a href="https://www.garmin.com/es-MX" class="ally-link ally-link-web" target="_blank">Web</a>
+            <a href="https://www.facebook.com/GarminMexico" class="ally-link ally-link-fb" target="_blank">FB</a>
+          </div>
+        </div>
+        <div class="ally-card">
+          <div class="ally-name">Sportico</div>
+          <div class="ally-links"><a href="https://www.facebook.com/sportico.mx" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
+        </div>
+        <div class="ally-card">
+          <div class="ally-name">Sport Masters</div>
+          <div class="ally-links"><a href="https://www.facebook.com/sportmastersmx" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
+        </div>
+        <div class="ally-card">
+          <div class="ally-name">Under Ground</div>
+          <div class="ally-links"><a href="https://www.facebook.com/undergroundpuebla" class="ally-link ally-link-fb" target="_blank">Facebook</a></div>
+        </div>
+      </div>
+    </div>
 
-<!-- ══ CTA FINAL ══════════════════════════════════════ -->
-<div class="final-cta">
-  <div class="final-cta-inner">
-    <h2>¿Listo para <em>celebrar</em>?</h2>
-    <p>Reserva tu mesa, mándanos tu fecha de cumpleaños y nosotros nos encargamos del resto. ¡Te esperamos en Vía San Ángel!</p>
-    <a href="https://wa.me/522222252325?text=Hola%20VIPS%20V%C3%ADa%20San%20%C3%81ngel%2C%20quiero%20celebrar%20mi%20cumplea%C3%B1os%20%F0%9F%8E%82" class="final-cta-btn" target="_blank">
-      💬 Escríbenos por WhatsApp
+  </div><!-- /allies-inner -->
+</div><!-- /allies-section -->
+
+<!-- ══ FINAL CTA ════════════════════════════════════════ -->
+<div class="final-section">
+  <div class="ornament">◆</div>
+  <h2>¿Listo para Celebrar? 🎂</h2>
+  <p>Reserva tu mesa, mándanos tu fecha y nosotros nos encargamos del resto. ¡Te esperamos en Vía San Ángel, Puebla!</p>
+
+  <div class="cta-group">
+    <div class="btn-pulse-wrap">
+      <a href="https://wa.me/522222252325?text=Hola%20VIPS%20Via%20San%20Angel%2C%20quiero%20celebrar%20mi%20cumpleanos%20%F0%9F%8E%82" class="btn-main btn-whatsapp" target="_blank">
+        💬 ¡Escríbenos por WhatsApp!
+      </a>
+    </div>
+    <a href="https://vips.com.mx" class="btn-main btn-menu" target="_blank" style="max-width:440px;width:100%;">
+      🌐 Visitar vips.com.mx
+    </a>
+    <a href="https://www.facebook.com/VIPSMX" class="btn-main btn-outline" style="width:100%;" target="_blank">
+      👍 Seguirnos en Facebook
     </a>
   </div>
 </div>
 
-<div class="address-strip">
-  VIPS Vía San Ángel · Atlixcáyotl 1504, Reserva Territorial Atlixcáyotl, Puebla ·
-  <a href="https://vips.com.mx" target="_blank">vips.com.mx</a> · Tel: 222 225 23 25
-</div>
+<!-- FOOTER -->
+<footer>
+  VIPS Vía San Ángel · Atlixcáyotl 1504, Reserva Territorial Atlixcáyotl, Puebla<br>
+  Tel: <a href="tel:2222252325">222 225 23 25</a> · <a href="https://vips.com.mx" target="_blank">vips.com.mx</a><br>
+  Horario: Lun–Dom 7:00 am – 11:00 pm · 🌟 Parte de Grupo Alsea
+</footer>
 
-<script>
-function showTab(id, btn) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
 </body>
 </html>
